@@ -15,7 +15,20 @@ let footer = document.createElement('div');
 footer.classList.add('footer');
 container.appendChild(footer);
 
-const tasks = [
+//choose level
+let dropdown = document.createElement('div');
+dropdown.classList.add('dropdown');
+header.appendChild(dropdown);
+let label = document.createElement('label');
+label.setAttribute('for', 'dropdown');
+dropdown.appendChild(label);
+let select = document.createElement('select');
+select.classList.add('select');
+select.setAttribute('name', 'dropdown');
+select.setAttribute('id', 'dropdown');
+dropdown.appendChild(select);
+
+const tasks5 = [
     {
         name: 'skull',
         arrTopTip: ['', 2, '', 2, '', 3, 2, 4, 2, 3],
@@ -28,16 +41,93 @@ const tasks = [
                 1, 1, 1, 1, 1,
                 0, 1, 0, 1, 0
             ]
+    },
+    {
+        name: 'tower',
+        arrTopTip: ['', '', 3, '', '', 2, 4, 1, 4, 2],
+        arrLeftTip: [1, '', '', '', '', 1, '', '', 1, '', 1, 5, 3, 1, 3],
+        result:
+            [
+                1, 0, 1, 0, 1,
+                1, 1, 1, 1, 1,
+                0, 1, 1, 1, 0,
+                0, 1, 0, 1, 0,
+                0, 1, 1, 1, 0
+            ]
+    },
+    {
+        name: 'smile',
+        arrTopTip: [2, 2, '', 2, 2, 1, 1, 1, 1, 1],
+        arrLeftTip: [2, 2, '', 1, '', 2, 2, '', 1, 3],
+        result:
+            [
+                1, 1, 0, 1, 1,
+                1, 1, 0, 1, 1,
+                0, 0, 0, 0, 0,
+                1, 0, 0, 0, 1,
+                0, 1, 1, 1, 0
+            ]
+    },
+    {
+        name: 'plane',
+        arrTopTip: ['', 2, '', 2, '', 1, 1, 5, 1, 1],
+        arrLeftTip: [1, 3, 5, 1, 3],
+        result:
+            [
+                0, 0, 1, 0, 0,
+                0, 1, 1, 1, 0,
+                1, 1, 1, 1, 1,
+                0, 0, 1, 0, 0,
+                0, 1, 1, 1, 0
+            ]
+    },
+    {
+        name: 'heart',
+        arrTopTip: ['', 1, 1, 1, '', 2, 1, 1, 1, 2],
+        arrLeftTip: ['', 1, '', '', '', 1, 1, 1, 1, '', 1, 1, 1, 1, 1],
+        result:
+            [
+                0, 1, 0, 1, 0,
+                1, 0, 1, 0, 1,
+                1, 0, 0, 0, 1,
+                0, 1, 0, 1, 0,
+                0, 0, 1, 0, 0
+            ]
     }
 ]
 
-let currentTask = tasks[0];
+select.insertAdjacentHTML('afterbegin', '<option disabled selected>choose your level</option>');
+
+
+tasks5.forEach(function (task) {
+    let option = document.createElement('option');
+    option.innerText = task.name;
+    select.appendChild(option);
+});
+
+//dropdown select event
+let currentTask;
+select.addEventListener('change', function () {
+    let selectedIndex = select.selectedIndex;
+    if (selectedIndex !== 0) {
+        let selectedTask = tasks5[selectedIndex - 1];
+        currentTask = selectedTask;
+        renderTable();
+    }
+});
+
+
+
+
 
 //render table
+let tableContainer = document.createElement('div');
+main.appendChild(tableContainer);
 let renderTable = function () {
     let table = document.createElement('div');
     table.classList.add('table');
-    main.appendChild(table);
+    tableContainer.innerHTML = '';
+    tableContainer.appendChild(table);
     let elementEmpty = document.createElement('div');
     table.appendChild(elementEmpty);
     elementEmpty.innerText = ' ';
@@ -100,7 +190,6 @@ let renderTable = function () {
         });
     }
 }
-renderTable();
 
 //modal window 
 let dialog = document.createElement('dialog');
