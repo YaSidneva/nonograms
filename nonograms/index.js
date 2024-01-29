@@ -116,10 +116,6 @@ select.addEventListener('change', function () {
     }
 });
 
-
-
-
-
 //render table
 let tableContainer = document.createElement('div');
 main.appendChild(tableContainer);
@@ -127,6 +123,7 @@ let renderTable = function () {
     let table = document.createElement('div');
     table.classList.add('table');
     tableContainer.innerHTML = '';
+    currentResult = Array(25).fill(0)
     tableContainer.appendChild(table);
     let elementEmpty = document.createElement('div');
     table.appendChild(elementEmpty);
@@ -172,7 +169,6 @@ let renderTable = function () {
                 playgroundElChecked.classList.add('playground-element-checked');
                 currentResult[i] = 1;
             }
-
             if (currentResult.every((val, index) => val === currentTask.result[index])) {
                 dialog.showModal();
             }
@@ -191,6 +187,18 @@ let renderTable = function () {
     }
 }
 
+//refresh button
+let refreshBtn = document.createElement('button');
+refreshBtn.classList.add('refresh-btn');
+header.appendChild(refreshBtn);
+refreshBtn.innerText = 'Reset';
+let refreshIcon = document.createElement('div');
+refreshIcon.classList.add('refresh-icon');
+refreshBtn.appendChild(refreshIcon);
+refreshBtn.addEventListener('click', (event) => {
+    renderTable();
+});
+
 //modal window 
 let dialog = document.createElement('dialog');
 let dialogContent = document.createElement('div');
@@ -202,11 +210,28 @@ let dialogButton = document.createElement('button');
 dialogButton.classList.add('dialog-button');
 dialogButton.innerHTML = "Try new image";
 dialogButton.addEventListener('click', () => {
+    main.innerText = '';
     dialog.close();
+
+    let defaultOption = document.createElement('option');
+    defaultOption.setAttribute('disabled', true);
+    defaultOption.setAttribute('selected', true);
+    defaultOption.innerText = 'choose your level';
+
+    select.innerHTML = '';
+    select.appendChild(defaultOption);
+
+    tasks5.forEach(function (task) {
+        let option = document.createElement('option');
+        option.innerText = task.name;
+        select.appendChild(option);
+    });
 });
 dialogContent.appendChild(dialogText);
 dialogContent.appendChild(dialogButton);
 body.appendChild(dialog);
+
+
 
 let currentResult = Array(25).fill(0);
 

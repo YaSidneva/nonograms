@@ -21,6 +21,19 @@ body {
     align-items: center;
 }
 
+.refresh-btn {
+    margin-left: 8px;
+    display: flex;
+}
+
+.refresh-icon {
+    background: url(img/refresh-svgrepo-com.svg);
+    width: 15px;
+    height: 15px;
+    background-size: contain;
+    margin-left: 5px;
+}
+
 .main {
     display: flex;
     justify-content: center;
