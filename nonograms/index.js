@@ -96,7 +96,7 @@ const tasks5 = [
     }
 ]
 
-select.insertAdjacentHTML('afterbegin', '<option disabled selected>choose your level</option>');
+select.insertAdjacentHTML('afterbegin', '<option disabled selected>Choose your level</option>');
 
 
 tasks5.forEach(function (task) {
@@ -216,7 +216,7 @@ dialogButton.addEventListener('click', () => {
     let defaultOption = document.createElement('option');
     defaultOption.setAttribute('disabled', true);
     defaultOption.setAttribute('selected', true);
-    defaultOption.innerText = 'choose your level';
+    defaultOption.innerText = 'Choose your level';
 
     select.innerHTML = '';
     select.appendChild(defaultOption);
